@@ -18,14 +18,14 @@ public class OrdenCompraService {
 	private OrdenCompraRepository repoOrden;
 	
 	public List<OrdenCompra> getAll(){
-		return repoOrden.findAll();
+		return repoOrden.findAllByOrderByNroOrdenDesc();
 	}
 
 	public ResultadoResponse create(OrdenCompra orden) {
 		try {
 			OrdenCompra inventarioRegistrado = repoOrden.save(orden);
 			
-			String mensaje = String.format("Orden registrado con Id %s", inventarioRegistrado.getNroOrden());
+			String mensaje = String.format("Orden de compra Nro %s Registrada", inventarioRegistrado.getNroOrden());
 			return new ResultadoResponse(true, mensaje);
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -41,7 +41,7 @@ public class OrdenCompraService {
 		try {
 			OrdenCompra inventarioRegistrado = repoOrden.save(orden);
 			
-			String mensaje = String.format("Orden registrado con Id %s", inventarioRegistrado.getNroOrden());
+			String mensaje = String.format("Orden de compra Nro %s Actualizada", inventarioRegistrado.getNroOrden());
 			return new ResultadoResponse(true, mensaje);
 		}catch (Exception e) {
 			e.printStackTrace();

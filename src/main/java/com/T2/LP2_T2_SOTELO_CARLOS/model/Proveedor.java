@@ -45,4 +45,8 @@ public class Proveedor {
 	@ManyToOne
 	@JoinColumn(name="id_rubro")
 	private Rubro rubro;
+	
+	public String toString() {
+		return razonSocial;
+	}
 }

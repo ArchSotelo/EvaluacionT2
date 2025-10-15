@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -58,4 +59,31 @@ public class OrdenCompraController {
 		flash.addFlashAttribute("toast", Alert.sweetToast(response.mensaje, "success", 5000));
 		return "redirect:/orden/listado";
 	}
+	
+	@GetMapping("edicion/{id}")
+	public String edicion(@PathVariable Integer id, Model model) {
+		model.addAttribute("lstOrden", serOrden.getAll());
+		model.addAttribute("lstProveedor", serProve.getAll());
+		model.addAttribute("orden", serOrden.getOne(id));
+		return "orden/edicion";
+	}
+	
+	@PostMapping("guardar")
+	public String guardar(@ModelAttribute OrdenCompra oc,Model model, RedirectAttributes flash) {
+		
+		var response = serOrden.update(oc);
+		
+		if(!response.success) {
+			model.addAttribute("alert", Alert.sweetAlertError(response.mensaje));
+			model.addAttribute("lstOrden", serOrden.getAll());
+			model.addAttribute("lstProveedor", serProve.getAll());
+			return "orden/nuevo";
+		}
+		
+		flash.addFlashAttribute("toast", Alert.sweetToast(response.mensaje, "success", 5000));
+		return "redirect:/orden/listado";
+	}
+	
+	
+	
 }

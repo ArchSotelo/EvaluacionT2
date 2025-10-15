@@ -49,10 +49,10 @@
 							<td th:text="${item.prove.razonSocial}"></td>
 							<td th:text="${item.prove.rubro.denominacion}"></td>
 							<td th:text="${item.prove.paginaWeb}"></td>
-							<td th:text="${item.monto}"></td>
+							<td th:text="|S/. ${item.monto}|"></td>
 							<td th:text="${item.textoEstado}"></td>
 							<td class="text-center align-middle">
-								<a href="#" class="btn btn-outline-secondary" title="Editar" role="button">
+								<a th:href="@{/orden/edicion/{id}(id=${item.nroOrden})}" class="btn btn-outline-secondary" title="Editar" role="button">
 									<i class="fa-regular fa-pen-to-square"></i>
 								</a>
 							</td>
@@ -62,6 +62,7 @@
 			</div>
 		</div>
 	</div>
+	<th:block th:utext="${toast}"></th:block>
 </body>
 
 </html>
